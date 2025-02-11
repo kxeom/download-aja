@@ -1,0 +1,107 @@
+.font-inter {
+    font-family: 'Inter', sans-serif;
+}
+
+.font-poppins {
+    font-family: 'Poppins', sans-serif;
+}
+
+.logo-animation {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.loading-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.platform-card {
+    @apply flex items-center gap-3 p-6 rounded-xl bg-gradient-to-br from-white to-indigo-50 border border-gray-100 
+           hover:shadow-lg hover:border-indigo-200 transition-all duration-300 transform hover:scale-105 cursor-pointer;
+}
+
+.platform-card i {
+    @apply text-indigo-500 transition-colors duration-300;
+}
+
+.platform-card:hover i {
+    @apply text-indigo-600;
+}
+
+.platform-card span {
+    @apply text-gray-700 font-medium;
+}
+
+/* Download Items */
+.download-item {
+    @apply bg-white rounded-xl border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-lg;
+}
+
+.download-stats {
+    @apply grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-gray-50 text-sm text-gray-600;
+}
+
+.stat-item {
+    @apply flex items-center gap-2;
+}
+
+.download-button {
+    @apply px-6 py-3 bg-indigo-500 text-white rounded-xl hover:bg-indigo-600 transition-all duration-300 
+           flex items-center gap-2 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2;
+}
+
+.media-preview {
+    @apply rounded-xl overflow-hidden bg-gray-50;
+}
+
+.media-preview img,
+.media-preview video {
+    @apply w-full h-auto object-cover;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2563eb;
+}

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All-in-One Media Downloader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-indigo-50 min-h-screen font-inter">
+    <div class="container mx-auto px-4 py-4 sm:py-8">
+        <header class="text-center mb-6 sm:mb-12" data-aos="fade-down">
+            <div class="flex justify-center mb-4">
+                <div>
+                    <i class="fas fa-cloud-download-alt text-4xl sm:text-5xl text-indigo-500"></i>
+                </div>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-2 font-poppins">All-in-One Media Downloader</h1>
+            <p class="text-sm sm:text-base text-gray-600">Download media from various social media.</p>
+        </header>
+        
+
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl p-4 sm:p-8 mb-6 sm:mb-8 transform hover:scale-[1.01] transition-all duration-300" data-aos="fade-up">
+                <div class="flex flex-col gap-4">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fas fa-link text-gray-400"></i>
+                        </div>
+                        <input type="url" id="urlInput" 
+                               class="w-full pl-12 pr-4 py-3 sm:py-4 border border-gray-200 rounded-lg sm:rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all text-sm sm:text-base"
+                               placeholder="Input Url here">
+                    </div>
+                    
+                    <button onclick="downloadMedia()" 
+                            class="download-btn w-full sm:w-auto flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-indigo-500 text-white rounded-lg sm:rounded-xl hover:bg-indigo-600 transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 text-sm sm:text-base">
+                        <i class="fas fa-download"></i>
+                        <span>Download</span>
+                    </button>
+                </div>
+
+                <div id="loading" class="hidden mt-6 sm:mt-8">
+                    <div class="loading-animation">
+                        <div class="loading-spinner"></div>
+                    </div>
+                    <p class="mt-4 text-sm sm:text-base text-gray-600 text-center">Processing your request...</p>
+                </div>
+
+
+                <div id="result" class="hidden mt-6 sm:mt-8">
+                    <div class="border-t border-gray-100 pt-4 sm:pt-6">
+                        <div class="flex items-center gap-2 mb-4 sm:mb-6">
+                            <div class="w-2 h-2 bg-indigo-500 rounded-full"></div>
+                            <h3 class="text-base sm:text-lg font-semibold text-gray-800">Download Result</h3>
+                        </div>
+                        <div id="mediaPreview" class="space-y-4 sm:space-y-6">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl p-4 sm:p-8" data-aos="fade-up" data-aos-delay="100">
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="w-2 h-2 bg-indigo-500 rounded-full"></div>
+                    <h2 class="text-lg sm:text-xl font-semibold text-gray-800">Supported Platforms</h2>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+                    <div class="platform-card bg-gray-50 hover:bg-indigo-50 rounded-xl border border-gray-200 hover:border-purple-200 p-4 flex flex-col items-center gap-3 transition-all duration-300 transform hover:scale-105 cursor-pointer" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="w-12 h-12 flex items-center justify-center bg-indigo-500 text-white rounded-full">
+                            <i class="fab fa-tiktok text-2xl"></i>
+                        </div>
+                        <span class="font-medium text-gray-700">TikTok</span>
+                    </div>
+                    
+                    <div class="platform-card bg-gray-50 hover:bg-indigo-50 rounded-xl border border-gray-200 hover:border-purple-200 p-4 flex flex-col items-center gap-3 transition-all duration-300 transform hover:scale-105 cursor-pointer" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="w-12 h-12 flex items-center justify-center bg-indigo-500 text-white rounded-full">
+                            <i class="fas fa-video text-2xl"></i>
+                        </div>
+                        <span class="font-medium text-gray-700">CapCut</span>
+                    </div>
+                    
+                    <div class="platform-card bg-gray-50 hover:bg-indigo-50 rounded-xl border border-gray-200 hover:border-red-200 p-4 flex flex-col items-center gap-3 transition-all duration-300 transform hover:scale-105 cursor-pointer" data-aos="zoom-in" data-aos-delay="250">
+                        <div class="w-12 h-12 flex items-center justify-center bg-indigo-500 text-white rounded-full">
+                            <i class="fas fa-book text-2xl"></i>
+                        </div>
+                        <span class="font-medium text-gray-700">RedNote</span>
+                    </div>
+                    
+                    <div class="platform-card bg-gray-50 hover:bg-indigo-50 rounded-xl border border-gray-200 hover:border-indigo-200 p-4 flex flex-col items-center gap-3 transition-all duration-300 transform hover:scale-105 cursor-pointer" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="w-12 h-12 flex items-center justify-center bg-indigo-500 text-white rounded-full">
+                            <i class="fab fa-at text-2xl"></i>
+                        </div>
+                        <span class="font-medium text-gray-700">Threads</span>
+                    </div>
+                    
+                    <div class="platform-card bg-gray-50 hover:bg-indigo-50 rounded-xl border border-gray-200 hover:border-indigo-200 p-4 flex flex-col items-center gap-3 transition-all duration-300 transform hover:scale-105 cursor-pointer" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="w-12 h-12 flex items-center justify-center bg-indigo-500 text-white rounded-full">
+                            <i class="fab fa-soundcloud text-2xl"></i>
+                        </div>
+                        <span class="font-medium text-gray-700">Soundcloud</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 sm:mt-8 bg-white rounded-lg sm:rounded-xl shadow-lg overflow-hidden transform hover:shadow-xl transition-all duration-300" data-aos="fade-up" data-aos-delay="150">
+                <div class="p-4 sm:p-6">
+                    <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 flex items-center gap-3">
+                        <i class="fas fa-question-circle text-indigo-500"></i>
+                        Frequently Asked Questions
+                    </h2>
+                    
+                    <div class="space-y-3 sm:space-y-4">
+                        <div class="faq-item border border-gray-200 rounded-lg overflow-hidden transform transition-all duration-300 hover:scale-[1.01] hover:border-indigo-200" data-aos="fade-up" data-aos-delay="200">
+                            <button class="faq-toggle w-full px-6 py-4 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors">
+                                <span class="font-semibold text-gray-800 flex items-center gap-3">
+                                    <i class="fas fa-shield-alt text-indigo-500"></i>
+                                    Is this service safe?
+                                </span>
+
+                                <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-content hidden px-6 py-4 bg-white">
+                                <p class="text-gray-600">Yes, WebDL is completely safe. We don't store any of your data or downloaded files. All downloads are processed server-side and automatically deleted after being sent to you.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item border border-gray-200 rounded-lg overflow-hidden transform transition-all duration-300 hover:scale-[1.01] hover:border-indigo-200" data-aos="fade-up" data-aos-delay="250">
+                            <button class="faq-toggle w-full px-6 py-4 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors">
+                                <span class="font-semibold text-gray-800 flex items-center gap-3">
+                                    <i class="fas fa-cogs text-purple-500"></i>
+                                    How does it work?
+                                </span>
+                                <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-content hidden px-6 py-4 bg-white">
+                                <div class="space-y-3">
+                                    <p class="text-gray-600">WebDL works by fetching media content directly from the source platform:</p>
+                                    <div class="flex items-center gap-4 text-gray-600">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-link text-indigo-500"></i>
+                                        </div>
+                                        <span>Paste URL → Process → Download → Auto-cleanup</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item border border-gray-200 rounded-lg overflow-hidden transform transition-all duration-300 hover:scale-[1.01] hover:border-indigo-200" data-aos="fade-up" data-aos-delay="300">
+                            <button class="faq-toggle w-full px-6 py-4 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors">
+                                <span class="font-semibold text-gray-800 flex items-center gap-3">
+                                    <i class="fas fa-clock text-indigo-500"></i>
+                                    Download time?
+                                </span>
+                                <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-content hidden px-6 py-4 bg-white">
+                                <p class="text-gray-600">Download times vary depending on file size and your internet speed. Generally, the process takes from a few seconds to a couple of minutes for larger files.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+
+                @keyframes slideIn {
+                    from { transform: translateX(-100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+
+                .faq-item {
+                    animation: fadeIn 0.5s ease-out;
+                    animation-fill-mode: both;
+                }
+
+                .faq-item:nth-child(1) { animation-delay: 0.1s; }
+                .faq-item:nth-child(2) { animation-delay: 0.2s; }
+                .faq-item:nth-child(3) { animation-delay: 0.3s; }
+
+                .faq-content {
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+
+                .faq-toggle {
+                    transition: all 0.3s ease;
+                }
+
+                .faq-toggle:hover {
+                    background: linear-gradient(to right, #f3f4f6, #f9fafb);
+                }
+
+                .faq-toggle .fa-chevron-down {
+                    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+
+                .faq-content:not(.hidden) {
+                    animation: slideDown 0.3s ease-out;
+                }
+
+                @keyframes slideDown {
+                    from {
+                        opacity: 0;
+                        transform: translateY(-10px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+
+                .platform-icon {
+                    transition: all 0.3s ease;
+                }
+
+                .platform-icon:hover {
+                    transform: scale(1.2) rotate(5deg);
+                }
+                .report-btn {
+                    position: relative;
+                }
+
+                .report-btn::after {
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    border-radius: 8px;
+                    animation: pulse 2s infinite;
+                }
+
+                @keyframes pulse {
+                    0% {
+                        transform: scale(1);
+                        opacity: 0.5;
+                    }
+                    50% {
+                        transform: scale(1.05);
+                        opacity: 0;
+                    }
+                    100% {
+                        transform: scale(1);
+                        opacity: 0;
+                    }
+                }
+
+                /* Smooth scroll behavior */
+                html {
+                    scroll-behavior: smooth;
+                }
+                </style>
+                <script>
+                document.querySelectorAll('.faq-toggle').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const content = button.nextElementSibling;
+                        const icon = button.querySelector('.fa-chevron-down');
+                        const allContents = document.querySelectorAll('.faq-content');
+                        const allIcons = document.querySelectorAll('.fa-chevron-down');
+                        
+                        allContents.forEach(item => {
+                            if (item !== content && !item.classList.contains('hidden')) {
+                                item.style.maxHeight = '0px';
+                                item.classList.add('hidden');
+                            }
+                        });
+                        
+                        allIcons.forEach(i => {
+                            if (i !== icon) {
+                                i.style.transform = 'rotate(0deg)';
+                            }
+                        });
+
+                        content.classList.toggle('hidden');
+                        
+                        if (!content.classList.contains('hidden')) {
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                            icon.style.transform = 'rotate(180deg)';
+                            content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        } else {
+                            content.style.maxHeight = '0px';
+                            icon.style.transform = 'rotate(0deg)';
+                        }
+                    });
+                });
+
+                document.querySelectorAll('.platform-icon').forEach(icon => {
+                    icon.addEventListener('mouseenter', () => {
+                        icon.style.transform = 'scale(1.2) rotate(5deg)';
+                    });
+                    
+                    icon.addEventListener('mouseleave', () => {
+                        icon.style.transform = 'scale(1) rotate(0deg)';
+                    });
+                });
+                </script>
+            </div>
+
+            <div class="mt-6 sm:mt-8 p-4 sm:p-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg sm:rounded-xl" data-aos="fade-up" data-aos-delay="200">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4 flex items-center justify-center gap-3">
+                        <i class="fas fa-bug text-indigo-500"></i>
+                        Found an Issue?
+                    </h2>
+                    <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">Help us improve WebDL by reporting any issues!</p>
+                    
+                    <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+                        <a href="https://github.com/rdmistra/selfhost-dl/issues" target="_blank" 
+                           class="inline-flex items-center justify-center gap-2 bg-gray-800 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-lg hover:bg-gray-900 transition-all transform hover:-translate-y-1 hover:shadow-lg text-sm sm:text-base">
+                            <i class="fab fa-github"></i>
+                            <span>Report Bug</span>
+                        </a>
+                        <a href="https://github.com/rdmistra/selfhost-dl" target="_blank"
+                           class="inline-flex items-center justify-center gap-2 bg-indigo-600 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-lg hover:bg-indigo-700 transition-all transform hover:-translate-y-1 hover:shadow-lg text-sm sm:text-base">
+                            <i class="fas fa-code"></i>
+                            <span>Source Code</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            disable: window.innerWidth < 768
+        });
+    </script>
+    <script src="/js/main.js"></script>
+</body>
+</html> 
